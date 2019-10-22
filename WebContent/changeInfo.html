@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src = "/cardMatch/scripts/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+	<div>
+		<div>아이디</div>
+		<div id ="idView"></div>
+	</div>
+	<div>
+		<div>비밀번호</div>
+		<div><input type ="text" id= "memberPw"></div>
+	</div>
+	<div>
+		<div>level</div>
+		<select id ="level">
+			<option value="Y">Y</option>
+			<option value="N">N</option>
+		</select>
+	</div>
+</body>
+<button type ="button" id="changeBtn">정보수정</button>
+<script>
+$(document).ready(function(){
+		//sessionInfo 값을 동기요청
+		
+		$.ajax({
+			url:"/cardMatch/GetSessionInfo",
+			method:"POST",
+			async:false,  //동기요청
+			success: function(json){
+				memberIdOne = json;
+				console.log("id :",memberIdOne);
+			}
+		})
+		
+		
+		$("#changeBtn").click(function(){
+			$.ajax({
+				url:"/cardMatch/changeMemberInfo",
+				method:"POST",
+				data : {memberIdOne : memberIdOne,memberPw : $("#memberPw").val(),level : $("#level").val()},
+				success: function(json){
+					location.href = "/cardMatch/index.html";
+				}
+			})
+			
+		});
+		$("#idView").append(memberIdOne);
+})
+</script>
+</html>

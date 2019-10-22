@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src = "/cardMatch/scripts/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+	<h1>로그인</h1>
+	<table>
+		<tr>
+			<td>member_id</td>
+			<td><input type = "text" id ="memberId"></td>
+		</tr>
+		<tr>
+			<td>member_pw</td>
+			<td><input type = "text" id ="memberPw"></td>
+		</tr>
+	</table>
+	
+	<button type ="button" id="loginBtn">login</button>
+	
+	<button type ="button" id="signUpBtn">회원가입</button>
+	
+	<button type ="button" id="home">홈으로</button>
+</body>
+
+<script>
+	$("#loginBtn").click(function(){
+		
+		$.ajax({
+			url : "/cardMatch/Login",
+			method : "POST",
+			data : {memberId : $("#memberId").val() ,memberPw : $("#memberPw").val()}, 
+			success : function(json) { // json 파일 -> 자바스크립트 객체변경
+				location.href = "/cardMatch/index.html";
+				}
+		 });
+	});
+	
+$("#signUpBtn").click(function(){
+		location.href ="/cardMatch/signUp.html";
+	});
+	
+$("#home").click(function(){
+	location.href ="/cardMatch/index.html";
+});	
+</script>
+
+</html>

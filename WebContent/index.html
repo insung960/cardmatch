@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+
+.card {
+            position: relative;
+            width:310px;
+            height:450px;
+        }
+</style>
+</head>
+<body>                                                                                                                                             
+	<h1> - <span id ="loginState"></span>-회원님</h1>
+	
+	
+
+	
+	<div id ="logInOut"></div>
+	<div id ="signUpBtn"></div>
+	
+	<button type ="button" id="topTen">Top Ten</button>
+	<button type ="button" id="todayTopTen">오늘의 Top Ten</button>
+	<button type ="button" id="monthTopTen">이달의 Top Ten</button>
+	<button type ="button" id="total">모든기록</button>
+	
+	<div id ="myScore"></div>
+	
+	<div id ="gameStart"></div>
+	
+	<div id ="delete"></div>
+	<div id ="fix"></div>
+	
+	<table border="1">
+		<thead>
+			<tr>
+				<td>report_id</td>
+				<td>member_id</td>
+				<td>timer</td>
+				<td>count</td>
+				<td>report_date</td>
+			</tr>
+		</thead>
+		<tbody id ="reportList">
+			
+		</tbody>
+	</table>
+	
+	
+</body>
+
+	<script src = "/cardMatch/scripts/jquery-3.4.1.min.js"></script>
+	
+	<script>
+	
+	//도큐먼트안이 다실행되야 보여준다
+	$(document).ready(function(){
+		//sessionInfo 값을 동기요청
+		$.ajax({
+			url:"/cardMatch/GetSessionInfo",
+			method:"POST",
+			async:false,  //동기요청
+			success: function(json){
+				loginState = json;
+				console.log("로그인된아이디 : ",loginState);
+			}
+		})
+	
+		//로그인 상태를 확인하고 되잇을떄와 안되있을때 다른 버튼을 보여준다
+		if(loginState == null)
+			{
+				console.log("로그인안됨");
+				console.log(loginState);
+				$("#logInOut").append("<button type ='button' id='loginBtn'>로그인</button>");
+				$("#signUpBtn").append("<button type ='button' id='signUpBtn'>회원가입</button>");
+			}
+		else
+		{
+			console.log("로그인됨");
+			console.log(loginState);
+			$("#logInOut").append("<button type ='button' id='logoutBtn'>로그아웃</button>");
+			$("#gameStart").append("<button type ='button' id='gameStart'>게임시작</button>");
+			$("#myScore").append("<button type ='button' id='myScore'>내 기록</button>");
+			$("#delete").append("<button type ='button' id='delete'>회원탈퇴</button>");
+			$("#fix").append("<button type ='button' id='fix'>정보수정</button>");
+		}
+		
+	//로그인된 아이디를 출력
+	$("#loginState").text(loginState);
+		
+	//로그인버튼 누르면 로그인페이지로 이동
+	$("#loginBtn").click(function(){
+		location.href ="/cardMatch/login.html";
+	});
+	
+	//게임시작 누르면 퍼즐페이지로 이동
+	$("#gameStart").click(function(){
+		location.href ="/cardMatch/puzzle.html";
+	});
+	
+	//로그아웃버튼누르면 로그아웃 서블릿으로 가서 세션지우고 다시 인덱스페이지
+	$("#logoutBtn").click(function(){
+		$.ajax({
+			url:"/cardMatch/Logout",
+			method:"POST",
+			success: function(json){
+				location.href = "/cardMatch/index.html";
+			}
+		})
+		
+	});
+	
+	//회원가입버튼누르면 회원가입페이지로 이동
+	$("#signUpBtn").click(function(){
+		location.href ="/cardMatch/signUp.html";
+	});
+	
+	//게임기록들을 출력하기위한 버튼들의 기능
+	$("#topTen").click(function(){
+		$.ajax({
+			url:"/cardMatch/TopTen",
+			method:"POST",
+			data : {select : "all"},
+			success: function(json){
+				
+				console.log(json);
+				
+				$("#reportList").empty();
+				
+				$(json).each(function(index,item){
+					let Topten = "<tr><td>";
+					Topten += 	item.reportId;
+					Topten +=	"</td><td>";
+					Topten +=	item.member.memberId;
+					Topten +=	"</td><td>";
+					Topten +=	item.timer;
+					Topten +=	"</td><td>";
+					Topten +=	item.count;
+					Topten +=	"</td><td>";
+					Topten +=	item.reportDate;
+					Topten +=	"</td></tr>";
+					$("#reportList").append(Topten);
+				})
+			}
+		})
+	})
+	
+	$("#todayTopTen").click(function(){
+		$.ajax({
+			url:"/cardMatch/TopTen",
+			method:"POST",
+			data : {select : "today"},
+			success: function(json){
+				
+				$("#reportList").empty();
+				
+				console.log(json);
+				
+				$(json).each(function(index,item){
+					let Topten = "<tr><td>";
+					Topten += 	item.reportId;
+					Topten +=	"</td><td>";
+					Topten +=	item.member.memberId;
+					Topten +=	"</td><td>";
+					Topten +=	item.timer;
+					Topten +=	"</td><td>";
+					Topten +=	item.count;
+					Topten +=	"</td><td>";
+					Topten +=	item.reportDate;
+					Topten +=	"</td></tr>";
+					$("#reportList").append(Topten);
+				})
+			}
+		})
+	});
+	$("#monthTopTen").click(function(){
+		$.ajax({
+			url:"/cardMatch/TopTen",
+			method:"POST",
+			data : {select : "month"},
+			success: function(json){
+				
+				console.log(json);
+				
+				$("#reportList").empty();
+				
+				$(json).each(function(index,item){
+					let Topten = "<tr><td>";
+					Topten += 	item.reportId;
+					Topten +=	"</td><td>";
+					Topten +=	item.member.memberId;
+					Topten +=	"</td><td>";
+					Topten +=	item.timer;
+					Topten +=	"</td><td>";
+					Topten +=	item.count;
+					Topten +=	"</td><td>";
+					Topten +=	item.reportDate;
+					Topten +=	"</td></tr>";
+					$("#reportList").append(Topten);
+				})
+			}
+		})
+	});
+	$("#myScore").click(function(){
+		$.ajax({
+			url:"/cardMatch/TopTen",
+			method:"POST",
+			data : {select : loginState},
+			success: function(json){
+				
+				console.log(json);
+				
+				$("#reportList").empty();
+				
+				$(json).each(function(index,item){
+					let Topten = "<tr><td>";
+					Topten += 	item.reportId;
+					Topten +=	"</td><td>";
+					Topten +=	item.member.memberId;
+					Topten +=	"</td><td>";
+					Topten +=	item.timer;
+					Topten +=	"</td><td>";
+					Topten +=	item.count;
+					Topten +=	"</td><td>";
+					Topten +=	item.reportDate;
+					Topten +=	"</td></tr>";
+					$("#reportList").append(Topten);
+				})
+			}
+		})
+	});
+	
+	$("#total").click(function(){
+		$.ajax({
+			url:"/cardMatch/TopTen",
+			method:"POST",
+			data : {select : "total"},
+			success: function(json){
+				
+				$("#reportList").empty();
+				
+				console.log(json);
+				
+				$(json).each(function(index,item){
+					let Topten = "<tr><td>";
+					Topten += 	item.reportId;
+					Topten +=	"</td><td>";
+					Topten +=	item.member.memberId;
+					Topten +=	"</td><td>";
+					Topten +=	item.timer;
+					Topten +=	"</td><td>";
+					Topten +=	item.count;
+					Topten +=	"</td><td>";
+					Topten +=	item.reportDate;
+					Topten +=	"</td></tr>";
+					$("#reportList").append(Topten);
+				})
+			}
+		})
+	});
+	
+	// 현재 로그인되어있는 아이디를삭제한다
+	$("#delete").click(function(){
+		$.ajax({
+			url:"/cardMatch/DeleteMember",
+			method:"POST",
+			data : {id : loginState},
+			success: function(json){
+				location.href = "/cardMatch/index.html";
+			}
+		})
+		
+	});
+	
+	//현재 로그인 되어있는 계정의 정보를 수정하는 페이지로 이동한다
+	$("#fix").click(function(){
+		location.href ="/cardMatch/changeInfo.html";
+	});
+	
+	
+	
+})
+	</script>
+
+</html>

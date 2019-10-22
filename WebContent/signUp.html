@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>회원가입</h1>
+	
+	<div>
+		<div>아이디 : </div>
+		<div><input type ="text" id = newId></div>
+	</div>
+	
+	<div>
+		<div>비밀번호 : </div>
+		<div><input type ="text" id = newPw></div>
+	</div>
+	
+	<button type ="button" id="signUp">회원가입</button>
+	
+	
+	<script src = "/cardMatch/scripts/jquery-3.4.1.min.js"></script>
+	
+	
+	<script>
+	$("#signUp").click(function(){
+		
+		$.ajax({
+			url : "/cardMatch/signUp",
+			method : "POST",
+			data : {newId : $("#newId").val() ,newPw : $("#newPw").val()}, 
+			success : function(json) { // json 파일 -> 자바스크립트 객체변경
+				location.href = "/cardMatch/login.html";
+				}
+		 });
+	});
+</script>
+	
+</body>
+</html>
