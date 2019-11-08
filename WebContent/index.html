@@ -4,37 +4,60 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+.centered { display: table; margin-left: auto; margin-right: auto; }
 
-.card {
-            position: relative;
+.card 
+{
+           	position: relative;
             width:310px;
             height:450px;
-        }
+}
+
+body	
+{
+	
+}
 </style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
-<body>                                                                                                                                             
+<body>                                   
+<div style="TEXT-ALIGN: center">                                                                                                          
 	<h1> - <span id ="loginState"></span>-회원님</h1>
 	
+	<table>
+		<tr >
+			<td id = "logInOut"></td>
+			<td></td>
+			<td id = "signUpBtn"></td>
+		</tr>
+	</table>
 	
-
-	
-	<div id ="logInOut"></div>
-	<div id ="signUpBtn"></div>
+	<table>
+		<tr>
+			<td id = "myScore"></td>
+			<td id = "gameStart"></td>
+			<td id = "delete"></td>
+			<td id = "fix"></td>
+		</tr>
+	</table>
 	
 	<button type ="button" id="topTen">Top Ten</button>
 	<button type ="button" id="todayTopTen">오늘의 Top Ten</button>
 	<button type ="button" id="monthTopTen">이달의 Top Ten</button>
 	<button type ="button" id="total">모든기록</button>
 	
-	<div id ="myScore"></div>
-	
-	<div id ="gameStart"></div>
-	
-	<div id ="delete"></div>
-	<div id ="fix"></div>
-	
-	<table border="1">
-		<thead>
+	<table border="1" class="table">
+		<thead >
 			<tr>
 				<td>report_id</td>
 				<td>member_id</td>
@@ -48,7 +71,7 @@
 		</tbody>
 	</table>
 	
-	
+</div>
 </body>
 
 	<script src = "/cardMatch/scripts/jquery-3.4.1.min.js"></script>
@@ -73,18 +96,18 @@
 			{
 				console.log("로그인안됨");
 				console.log(loginState);
-				$("#logInOut").append("<button type ='button' id='loginBtn'>로그인</button>");
-				$("#signUpBtn").append("<button type ='button' id='signUpBtn'>회원가입</button>");
+				$("#logInOut").append("<button type ='button ' id='loginBtn' class='btn btn-primary'>로그인</button>");
+				$("#signUpBtn").append("<button type ='button' id='signUpBtn' class='btn btn-primary'>회원가입</button>");
 			}
 		else
 		{
 			console.log("로그인됨");
 			console.log(loginState);
-			$("#logInOut").append("<button type ='button' id='logoutBtn'>로그아웃</button>");
-			$("#gameStart").append("<button type ='button' id='gameStart'>게임시작</button>");
-			$("#myScore").append("<button type ='button' id='myScore'>내 기록</button>");
-			$("#delete").append("<button type ='button' id='delete'>회원탈퇴</button>");
-			$("#fix").append("<button type ='button' id='fix'>정보수정</button>");
+			$("#logInOut").append("<button type ='button' id='logoutBtn' class='btn btn-success'>로그아웃</button>");
+			$("#gameStart").append("<button type ='button' id='gameStart' class='btn btn-info'>게임시작</button>");
+			$("#myScore").append("<button type ='button' id='myScore' class='btn btn-warning'>내 기록</button>");
+			$("#delete").append("<button type ='button' id='delete' class='btn btn-danger'>회원탈퇴</button>");
+			$("#fix").append("<button type ='button' id='fix' class='btn btn-dark'>정보수정</button>");
 		}
 		
 	//로그인된 아이디를 출력
