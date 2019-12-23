@@ -4,34 +4,44 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-   table, td {
-      border: 1px solid black;
-   }
-   table {
-      border-collapse: collapse;
-   }
-   
    .hp {
       height: 86px;
       width: 86px;
    }
+   .ct {
+	  margin: 0 auto;
+	  text-align: center;
+	  background : black;
+	}
   
 </style>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
 <script src = "/cardMatch/scripts/jquery-3.4.1.min.js"></script>
-
-
-
 </head>
-<body>
 
-   <h2>puzzle - <span id = "loginState"></span>-<span id = "timer">0</span></h2>
+<body class= "ct">
+
+   <h2 style = color:white>puzzle - <span id = "loginState"></span>-<span id = "timer">0</span></h2>
    
-   <button id = "home" type = "button">HOME</button>
-
-
+   <button id = "home" type = "button"  class="btn btn-secondary">HOME</button>
+   <br>
+   <br>
+   <br>
+   <br>
 <!-- HP를 보여주는테이블 (HP 변경코드는 카드를 맟추거나 틀릴시에 있음) 변수(life) -->
    <div>
-      <table>
+      <table class = "ct">
          <tr id = "lifeImg">
             <td><img class = 'hp' src = '/cardMatch/images/full.jpg'>
             <img class = 'hp' src = '/cardMatch/images/full.jpg'>
@@ -48,17 +58,19 @@
       </table>
    </div>
    
-   <table id = "board">
+   <table id = "board" border = "3" bordercolor = "white" class = "ct">
    
    </table>
-   
+   <br>
    <!-- 치트키 구간 -->
    <input type = "text" id = "cheat">
    <button type = "button" id ="cheatBtn">치트</button>
-   <div>치트키 목록</div>
-   <div>show me the money : 목숨을 한개추가한다</div>
-   <div>black sheep wall : 카드를 본다</div>
-   <div>power overwhelming : 무적이 된다</div>
+   <br>
+   <br>
+   <div style = color:white>치트키 목록</div>
+   <div style = color:white>show me the money : 목숨을 한개추가한다</div>
+   <div style = color:white>black sheep wall : 카드를 본다</div>
+   <div style = color:white>power overwhelming : 무적이 된다</div>
    
 <script>
 	

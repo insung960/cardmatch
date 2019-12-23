@@ -3,26 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.ct {
+  margin: 0 auto;
+  text-align: center;
+  background : black;
+}
+div { zoom: 3; }
+</style>
 <script src = "/cardMatch/scripts/jquery-3.4.1.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
-<body>
-	<h1>로그인</h1>
-	<table>
+<body class ="ct">
+	<div>
+	<h1 style = color:white>로그인</h1>
+	<table class = "ct">
 		<tr>
-			<td>member_id</td>
+			<td style = color:white>member_id</td>
 			<td><input type = "text" id ="memberId"></td>
 		</tr>
 		<tr>
-			<td>member_pw</td>
+			<td style = color:white>member_pw</td>
 			<td><input type = "text" id ="memberPw"></td>
 		</tr>
 	</table>
 	
-	<button type ="button" id="loginBtn">login</button>
+	<button type ="button" id="loginBtn" class="btn btn-secondary">login</button>
 	
-	<button type ="button" id="signUpBtn">회원가입</button>
+	<button type ="button" id="signUpBtn" class="btn btn-secondary">회원가입</button>
 	
-	<button type ="button" id="home">홈으로</button>
+	<button type ="button" id="home" class="btn btn-secondary">홈으로</button>
+	</div>
 </body>
 
 <script>

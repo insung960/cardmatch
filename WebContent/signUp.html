@@ -3,26 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.ct {
+  margin: 0 auto;
+  text-align: center;
+  background : black;
+}
+a { zoom: 3; }
+</style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
-<body>
-	<h1>회원가입</h1>
+<body class = "ct">
+	<a>
+	<h1 style = color:white>회원가입</h1>
 	
 	<div>
-		<div>아이디 : </div>
+		<div style = color:white>아이디 : </div>
 		<div><input type ="text" id = newId></div>
 	</div>
 	
 	<div>
-		<div>비밀번호 : </div>
+		<div style = color:white>비밀번호 : </div>
 		<div><input type ="text" id = newPw></div>
 	</div>
 	
-	<button type ="button" id="signUp">회원가입</button>
+	<button type ="button" id="signUp" class="btn btn-secondary">회원가입</button>
 	
 	
 	<script src = "/cardMatch/scripts/jquery-3.4.1.min.js"></script>
 	
-	
+	</a>
 	<script>
 	$("#signUp").click(function(){
 		
