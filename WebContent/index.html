@@ -34,7 +34,8 @@ div { zoom: 1.8; }
 	<div>                                                                                      
 	<h1 style = color:white> - <span id ="loginState"></span>-회원님</h1>
 	
-	<a id = "logInOut"></a>
+	<a id = "logIn"></a>
+	<a id = "logOut"></a>
 	<a id = "signUpBtn"></a>
 	<br>
 	<a id = "myScore"></a>
@@ -67,61 +68,70 @@ div { zoom: 1.8; }
 	
 	<script>
 	
+	 let loginState = null; // 로그인된 아이디를(세션)을 저장할변수
+	
 	//도큐먼트안이 다실행되야 보여준다
 	$(document).ready(function(){
+		
 		//sessionInfo 값을 동기요청
 		$.ajax({
 			url:"/cardMatch/GetSessionInfo",
 			method:"POST",
-			async:false,  //동기요청
 			success: function(json){
 				loginState = json;
 				console.log("로그인된아이디 : ",loginState);
+				
+				//로그인 상태를 확인하고 되잇을떄와 안되있을때 다른 버튼을 보여준다
+				if(loginState == null)
+					{
+						console.log("로그인안됨");
+						console.log(loginState);
+						$("#logIn").append("<button type ='button' id='loginBtn' class='btn btn-primary'>로그인</button>");
+						$("#signUpBtn").append("<button type ='button' id='signUpBtn' class='btn btn-primary'>회원가입</button>");
+					}
+				else
+				{
+					console.log("로그인됨");
+					console.log(loginState);
+					$("#logOut").append("<button type ='button' id='logoutBtn' class='btn btn-success'>로그아웃</button>");
+					$("#gameStart").append("<button type ='button' id='gameStart' class='btn btn-info'>게임시작</button>");
+					$("#myScore").append("<button type ='button' id='myScore' class='btn btn-warning'>내 기록</button>");
+					$("#delete").append("<button type ='button' id='delete' class='btn btn-danger'>회원탈퇴</button>");
+					$("#fix").append("<button type ='button' id='fix' class='btn btn-dark'>정보수정</button>");
+					//로그인된 아이디를 출력
+					$("#loginState").text(loginState);
+				}
 			}
 		})
 	
-		//로그인 상태를 확인하고 되잇을떄와 안되있을때 다른 버튼을 보여준다
-		if(loginState == null)
-			{
-				console.log("로그인안됨");
-				console.log(loginState);
-				$("#logInOut").append("<button type ='button ' id='loginBtn' class='btn btn-primary'>로그인</button>");
-				$("#signUpBtn").append("<button type ='button' id='signUpBtn' class='btn btn-primary'>회원가입</button>");
-			}
-		else
-		{
-			console.log("로그인됨");
-			console.log(loginState);
-			$("#logInOut").append("<button type ='button' id='logoutBtn' class='btn btn-success'>로그아웃</button>");
-			$("#gameStart").append("<button type ='button' id='gameStart' class='btn btn-info'>게임시작</button>");
-			$("#myScore").append("<button type ='button' id='myScore' class='btn btn-warning'>내 기록</button>");
-			$("#delete").append("<button type ='button' id='delete' class='btn btn-danger'>회원탈퇴</button>");
-			$("#fix").append("<button type ='button' id='fix' class='btn btn-dark'>정보수정</button>");
-		}
 		
-	//로그인된 아이디를 출력
-	$("#loginState").text(loginState);
+	
+	
+	//로그인버튼 누르면 로그인페이지로 이동
+	$(document).on('click','#loginBtn',function() {
+			console.log("로그인 클릭");
+			location.href ="/cardMatch/login.html";
+	});
 		
 	//로그인버튼 누르면 로그인페이지로 이동
-	$("#loginBtn").click(function(){
-		location.href ="/cardMatch/login.html";
+	$(document).on('click','#logoutBtn',function() {
+			console.log("로그아웃시도 클릭");
+			
+			$.ajax({
+				url : "/cardMatch/Logout",
+				method : "POST",
+				success : function(json) { // json 파일 -> 자바스크립트 객체변경
+					location.href = "/cardMatch/index.html";
+					}
+			 });
+			
+			location.href = "/cardMatch/index.html";
+			console.log("로그아웃성공");
 	});
 	
 	//게임시작 누르면 퍼즐페이지로 이동
 	$("#gameStart").click(function(){
 		location.href ="/cardMatch/puzzle.html";
-	});
-	
-	//로그아웃버튼누르면 로그아웃 서블릿으로 가서 세션지우고 다시 인덱스페이지
-	$("#logoutBtn").click(function(){
-		$.ajax({
-			url:"/cardMatch/Logout",
-			method:"POST",
-			success: function(json){
-				location.href = "/cardMatch/index.html";
-			}
-		})
-		
 	});
 	
 	//회원가입버튼누르면 회원가입페이지로 이동
@@ -290,10 +300,10 @@ div { zoom: 1.8; }
 	$("#fix").click(function(){
 		location.href ="/cardMatch/changeInfo.html";
 	});
+	});
+	 
 	
 	
-	
-})
 	</script>
 
 </html>

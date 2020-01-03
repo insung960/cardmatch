@@ -20,8 +20,8 @@ public class MemberDao
 		Member returnMember = new Member();
 		try 
 		{
-			ResultSet rs = null;
-			String sql = "SELECT id FROM member WHERE id=? AND pw=?";
+			ResultSet rs = null;                                           
+			String sql = "SELECT id FROM puzzle_member WHERE id=? AND pw=?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, member.getMemberId());
 			stmt.setString(2, member.getMemberPw());
@@ -61,7 +61,7 @@ public class MemberDao
 		try 
 		{
 			ResultSet rs = null;
-			String sql = "INSERT INTO member(id,pw) VALUES (?,?)";
+			String sql = "INSERT INTO puzzle_member(id,pw) VALUES (?,?)";
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, member.getMemberId());
 			stmt.setString(2, member.getMemberPw());
@@ -91,7 +91,7 @@ public class MemberDao
 		try 
 		{
 			ResultSet rs = null;
-			String sql = "DELETE FROM member WHERE id =?";
+			String sql = "DELETE FROM puzzle_member WHERE id =?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, memberId);
 			rs = stmt.executeQuery();
